@@ -1,0 +1,33 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: QUIZ-SERVICE
+  datasource:
+    url: jdbc:postgresql://localhost:5432/quiz_website
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          timezone: UTC
+  config:
+    import: optional:configserver:http://localhost:8085
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
