@@ -7,6 +7,8 @@ import com.fmsia2.quiz.service.repositories.RawQuestion;
 import com.fmsia2.quiz.service.services.QuestionService;
 import com.fmsia2.quiz.service.entities.Quiz;
 import com.fmsia2.quiz.service.services.QuizService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,7 @@ public class QuizController {
     private QuizService quizService;
     @Autowired
     private QuestionService questionService;
-
+    private Logger logger = LoggerFactory.getLogger(QuizController.class);
     @PostMapping("/createQuiz")
     public ResponseEntity<Quiz> createQuiz(@RequestBody Quiz quiz){
         Quiz quiz1 = quizService.saveQuiz(quiz);
@@ -61,6 +63,7 @@ public class QuizController {
 
     @GetMapping("/getQuizAnswers/{quizId}")
     public ResponseEntity<List<QtsAnswer>> getQuizAnswers(@PathVariable String quizId){
+        logger.info("Interaction service request with quizId :" + quizId );
         return ResponseEntity.status(HttpStatus.FOUND).body(questionService.getAnswersByQuizId(quizId));
     }
 

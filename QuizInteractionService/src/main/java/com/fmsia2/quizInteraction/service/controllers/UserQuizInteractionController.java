@@ -8,6 +8,10 @@ import com.fmsia2.quizInteraction.service.entities.QtsAnswer;
 import com.fmsia2.quizInteraction.service.entities.UserAnswer;
 import com.fmsia2.quizInteraction.service.projections.Interaction;
 import com.fmsia2.quizInteraction.service.projections.userAnswersObj;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +30,7 @@ public class UserQuizInteractionController {
 
     @Autowired
     private RestTemplate restTemplate;
-
+    private Logger logger = LoggerFactory.getLogger(UserQuizInteractionController.class);
 
     @PostMapping("/registerForQuiz")
     public ResponseEntity<String> registerForQuiz(@RequestBody UserQuizInteraction interaction){
@@ -67,12 +71,15 @@ public class UserQuizInteractionController {
         userAnswersObj useranswersobj = interactionService.getUserAnswersForReview(userId,quizId);
         return ResponseEntity.status(HttpStatus.FOUND).body(useranswersobj.getUserAnswers());
     }
-
+    int retryCount = 1;
+//    @CircuitBreaker(name="quizServiceFailed",fallbackMethod = "quizServiceFallback")
     @PostMapping("/submitAnswers")
+    @Retry(name="quizServiceFailed",fallbackMethod = "quizServiceFallback")
     public ResponseEntity<UserQuizInteraction> saveAnswers(@RequestBody UserQuizInteraction interaction){
         // here also once we connect all the services we will have to add a check
         // to see if answer submission is before quiz End-time compare with submission time
-        
+        logger.info("Retry count: {}", retryCount);
+        retryCount++;
         UserQuizInteraction interaction1 = interactionService.getInteraction(interaction.getUserId(), interaction.getQuizId());
 
         interaction1.setUserAnswers(interaction.getUserAnswers());
@@ -81,7 +88,7 @@ public class UserQuizInteractionController {
         int noOfCorrectQuestions = 0;
         // call all the question for this quiz from quiz api and store the correct answer in the
         // interaction1.getUserAnswers()[i].
-        QtsAnswer[] listQtsAnswers = restTemplate.getForObject("http://QUIZ-SERVICE/quizzes/getQuizAnswers/"+interaction.getQuizId(),QtsAnswer[].class);
+        QtsAnswer[] listQtsAnswers = restTemplate.getForObject("http://localhost:8084/quizzes/getQuizAnswers/"+interaction1.getQuizId(),QtsAnswer[].class);
 
         Map<String, Integer> qtsAnswerMap = new HashMap<>();
         for (QtsAnswer qtsAnswer : listQtsAnswers) {
@@ -103,6 +110,10 @@ public class UserQuizInteractionController {
         interaction1 = interactionService.saveInteraction(interaction1);
 
         return ResponseEntity.status(HttpStatus.FOUND).body(interaction1);
+    }
+    public ResponseEntity<UserQuizInteraction> quizServiceFallback(UserQuizInteraction interaction,Exception ex){
+        logger.info("Quiz service fallback "+ex.getMessage());
+        return new ResponseEntity<>(new UserQuizInteraction(),HttpStatus.SERVICE_UNAVAILABLE);
     }
     
 

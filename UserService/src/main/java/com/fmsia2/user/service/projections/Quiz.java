@@ -23,7 +23,9 @@ public class Quiz {
         this.endTimestamp = endTimestamp;
         this.timeZone = timeZone;
     }
-    public Quiz(){}
+    public Quiz(){
+        this.quizId = "0";
+    }
 
     public String getQuizId() {
         return quizId;
