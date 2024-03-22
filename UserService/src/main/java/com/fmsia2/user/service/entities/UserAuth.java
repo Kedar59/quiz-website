@@ -6,10 +6,9 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "usersauth")
+public class UserAuth {
     @Id
     @Column(name="ID")
     private String userId;
@@ -17,28 +16,30 @@ public class User {
     private String name;
     @Column(name="EMAIL",unique = true)
     private String email;
+    @Column(name="PASSWORD")
+    private String password;
     @Column(name="ABOUT")
     private String about;
 
-    @Transient
-    private List<Interaction> listOfInteractions = new ArrayList<>();
 
-    public List<Interaction> getListOfInteractions() {
-        return listOfInteractions;
+
+    public UserAuth() {
     }
 
-    public void setListOfInteractions(List<Interaction> listOfInteractions) {
-        this.listOfInteractions = listOfInteractions;
-    }
-
-    public User() {
-    }
-
-    public User(String userId,String name,String email,String about) {
+    public UserAuth(String userId,String name,String email,String password,String about) {
         this.userId = userId;
         this.name = name;
         this.email = email;
         this.about = about;
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUserId() {

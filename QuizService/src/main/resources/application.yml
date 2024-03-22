@@ -6,7 +6,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/quiz_website
     username: postgres
-    password: root
+    password: MosH@1211
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

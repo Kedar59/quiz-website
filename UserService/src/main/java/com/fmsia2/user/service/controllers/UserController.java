@@ -1,32 +1,59 @@
 package com.fmsia2.user.service.controllers;
 
+import com.fmsia2.user.service.entities.UserAuth;
+import com.fmsia2.user.service.projections.AuthRequest;
 import com.fmsia2.user.service.projections.QuizForReview;
 import com.fmsia2.user.service.projections.QuizWithQuestions;
 import com.fmsia2.user.service.entities.User;
+import com.fmsia2.user.service.repositories.UserAuthRepository;
+import com.fmsia2.user.service.services.UserAuthService;
 import com.fmsia2.user.service.services.UserService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserAuthService userAuthService;
+    @Autowired
+    private UserAuthRepository userAuthRepository;
     private Logger logger = LoggerFactory.getLogger(UserController.class);
     // create user
     @PostMapping("/register")
-    public ResponseEntity<User> createUser(@RequestBody User user){
-        User user1 = userService.saveUser(user);
+    public ResponseEntity<UserAuth> createUser(@RequestBody UserAuth userauth){
+        UserAuth user1 = userAuthService.saveUser(userauth);
         return ResponseEntity.status(HttpStatus.CREATED).body(user1);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<User> loginUser(@RequestBody AuthRequest request){
+//        logger.info("email : {}",request.getEmail());
+        Optional<UserAuth> userauth = userAuthRepository.findByEmail(request.getEmail());
+        if(userauth.isPresent()){
+            logger.info("request password : {}"+request.getPassword());
+            logger.info("database password : {}"+ userauth.get().getPassword());
+            if(userauth.get().getPassword().equals(request.getPassword()) ){
+                return ResponseEntity.status(HttpStatus.FOUND).body(userService.getUser(userauth.get().getUserId()));
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new User("incorrect password","incorrect password","incorrect password","incorrect password"));
+            }
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new User("email not registered","email not registered","email not registered","email not registered"));
+    }
+
     @GetMapping("/profile/{userId}")
     public ResponseEntity<User> getSingleUser(@PathVariable String userId){
         User user = userService.getUser(userId);

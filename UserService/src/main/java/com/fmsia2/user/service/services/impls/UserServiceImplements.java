@@ -56,8 +56,6 @@ public class UserServiceImplements implements UserService {
     }
     @Override
     public User saveUser(User user) {
-        String randomUserId = UUID.randomUUID().toString();
-        user.setUserId(randomUserId);
         return userRepository.save(user);
     }
     @Override
