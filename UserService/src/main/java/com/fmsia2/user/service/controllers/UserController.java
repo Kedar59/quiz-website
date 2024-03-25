@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+//@CrossOrigin(origins = "http://localhost:3000/", maxAge = 3600)
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -32,8 +33,13 @@ public class UserController {
     private UserAuthRepository userAuthRepository;
     private Logger logger = LoggerFactory.getLogger(UserController.class);
     // create user
+
     @PostMapping("/register")
     public ResponseEntity<UserAuth> createUser(@RequestBody UserAuth userauth){
+        Optional<UserAuth> userAuth1 = userAuthRepository.findByEmail(userauth.getEmail());
+        if(userAuth1.isPresent()){
+            return ResponseEntity.status(HttpStatus.FOUND).body(new UserAuth("user already exists","user with email already exists","user already exists","user already exists","user already exists"));
+        }
         UserAuth user1 = userAuthService.saveUser(userauth);
         return ResponseEntity.status(HttpStatus.CREATED).body(user1);
     }

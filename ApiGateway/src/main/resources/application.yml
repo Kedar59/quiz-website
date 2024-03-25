@@ -7,6 +7,15 @@ spring:
     import: optional:configserver:http://localhost:8085
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: 'http://localhost:3000'
+            allowedHeaders:
+              - Content-Type
+            allowedMethods:
+              - GET
+              - POST
       routes:
         - id: USER-SERVICE
           uri: lb://USER-SERVICE

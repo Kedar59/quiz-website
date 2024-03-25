@@ -19,6 +19,12 @@
 		<spring-cloud.version>2023.0.0</spring-cloud.version>
 	</properties>
 	<dependencies>
+<!--	cors dependencies	-->
+<!--		<dependency>-->
+<!--			<groupId>org.apache.httpcomponents.client5</groupId>-->
+<!--			<artifactId>httpclient5</artifactId>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
 <!--	TO ADD 1. eureka client 2. spring cloud bootstrap dependency	-->
 <!--	we need 2 things 1st a dependency management element thats in the spring initializer pom file	-->
 <!--	and this dependency management element also requires spring cloud version 	-->

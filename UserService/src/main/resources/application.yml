@@ -4,13 +4,13 @@ spring:
   application:
     name: USER-SERVICE
   datasource:
-    url: jdbc:postgresql://localhost:5432/quiz_website
-    username: postgres
-    password: root
+    url: jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:5432/postgres
+    username: postgres.foedxgeoyetpchiqrtyo
+    password: ChiruKed@2024
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       show-sql: true
   config:
     import: optional:configserver:http://localhost:8085
