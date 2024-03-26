@@ -5,8 +5,7 @@ spring:
     name: INTERACTION-SERVICE
   data:
     mongodb:
-      uri: mongodb+srv://kedarshidhaye:NGZHjtaJR3RNgilZ@cluster0.wsnguqx.mongodb.net/
-#      uri: mongodb+srv://kedarshidhaye:NGZHjtaJR3RNgilZ@cluster0.wsnguqx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      uri: mongodb://localhost:27017
       database: quiz-website
   config:
     import: optional:configserver:http://localhost:8085

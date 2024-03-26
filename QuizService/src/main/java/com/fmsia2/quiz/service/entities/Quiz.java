@@ -24,25 +24,25 @@ public class Quiz {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @Column(name = "startTime")
-    private ZonedDateTime startTimestamp;
-    @Column(name = "endTime")
-    private ZonedDateTime endTimestamp;
-    @Column(name = "timezone")
-    private String timeZone;
+//    @Column(name = "startTime")
+//    private ZonedDateTime startTimestamp;
+//    @Column(name = "endTime")
+//    private ZonedDateTime endTimestamp;
+//    @Column(name = "timezone")
+//    private String timeZone;
 
     // @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY)
     // private List<Question> questions;
 
 
-    public Quiz(String quizId, String title, int numberOfQuestions, User user, ZonedDateTime startTimestamp, ZonedDateTime endTimestamp, String timeZone) {
+    public Quiz(String quizId, String title, int numberOfQuestions, User user) {
         this.quizId = quizId;
         this.title = title;
         this.numberOfQuestions = numberOfQuestions;
         this.user = user;
-        this.startTimestamp = startTimestamp;
-        this.endTimestamp = endTimestamp;
-        this.timeZone = timeZone;
+//        this.startTimestamp = startTimestamp;
+//        this.endTimestamp = endTimestamp;
+//        this.timeZone = timeZone;
         // this.questions = questions;
     }
 
@@ -81,37 +81,37 @@ public class Quiz {
         this.user = user;
     }
 
-    public ZonedDateTime getStartTimestamp() {
-        return startTimestamp;
-    }
-
-    public void setStartTimestamp(ZonedDateTime startTimestamp) {
-        this.startTimestamp = startTimestamp;
-    }
-
-    public ZonedDateTime getEndTimestamp() {
-        return endTimestamp;
-    }
-
-    public void setEndTimestamp(ZonedDateTime endTimestamp) {
-        this.endTimestamp = endTimestamp;
-    }
-
-    public String getRecordTimezone() {
-        return timeZone;
-    }
-
-    public void setRecordTimezone(String timeZone) {
-        this.timeZone = timeZone;
-    }
-
-    public String getTimeZone() {
-        return timeZone;
-    }
-
-    public void setTimeZone(String timeZone) {
-        this.timeZone = timeZone;
-    }
+//    public ZonedDateTime getStartTimestamp() {
+//        return startTimestamp;
+//    }
+//
+//    public void setStartTimestamp(ZonedDateTime startTimestamp) {
+//        this.startTimestamp = startTimestamp;
+//    }
+//
+//    public ZonedDateTime getEndTimestamp() {
+//        return endTimestamp;
+//    }
+//
+//    public void setEndTimestamp(ZonedDateTime endTimestamp) {
+//        this.endTimestamp = endTimestamp;
+//    }
+//
+//    public String getRecordTimezone() {
+//        return timeZone;
+//    }
+//
+//    public void setRecordTimezone(String timeZone) {
+//        this.timeZone = timeZone;
+//    }
+//
+//    public String getTimeZone() {
+//        return timeZone;
+//    }
+//
+//    public void setTimeZone(String timeZone) {
+//        this.timeZone = timeZone;
+//    }
 
     // public List<Question> getQuestions() {
     //     return questions;

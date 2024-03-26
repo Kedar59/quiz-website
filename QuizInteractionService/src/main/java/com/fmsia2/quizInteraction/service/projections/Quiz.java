@@ -9,18 +9,18 @@ public class Quiz {
     private String title;
     private int numberOfQuestions;
     private User user;
-    private ZonedDateTime startTimestamp;
-    private ZonedDateTime endTimestamp;
-    private String timeZone;
+//    private ZonedDateTime startTimestamp;
+//    private ZonedDateTime endTimestamp;
+//    private String timeZone;
     public Quiz(){}
-    public Quiz(String quizId, String title, int numberOfQuestions, User user, ZonedDateTime startTimestamp, ZonedDateTime endTimestamp, String timeZone) {
+    public Quiz(String quizId, String title, int numberOfQuestions, User user) {
         this.quizId = quizId;
         this.title = title;
         this.numberOfQuestions = numberOfQuestions;
         this.user = user;
-        this.startTimestamp = startTimestamp;
-        this.endTimestamp = endTimestamp;
-        this.timeZone = timeZone;
+//        this.startTimestamp = startTimestamp;
+//        this.endTimestamp = endTimestamp;
+//        this.timeZone = timeZone;
     }
 
     public String getQuizId() {
@@ -55,27 +55,27 @@ public class Quiz {
         this.user = user;
     }
 
-    public ZonedDateTime getStartTimestamp() {
-        return startTimestamp;
-    }
-
-    public void setStartTimestamp(ZonedDateTime startTimestamp) {
-        this.startTimestamp = startTimestamp;
-    }
-
-    public ZonedDateTime getEndTimestamp() {
-        return endTimestamp;
-    }
-
-    public void setEndTimestamp(ZonedDateTime endTimestamp) {
-        this.endTimestamp = endTimestamp;
-    }
-
-    public String getTimeZone() {
-        return timeZone;
-    }
-
-    public void setTimeZone(String timeZone) {
-        this.timeZone = timeZone;
-    }
+//    public ZonedDateTime getStartTimestamp() {
+//        return startTimestamp;
+//    }
+//
+//    public void setStartTimestamp(ZonedDateTime startTimestamp) {
+//        this.startTimestamp = startTimestamp;
+//    }
+//
+//    public ZonedDateTime getEndTimestamp() {
+//        return endTimestamp;
+//    }
+//
+//    public void setEndTimestamp(ZonedDateTime endTimestamp) {
+//        this.endTimestamp = endTimestamp;
+//    }
+//
+//    public String getTimeZone() {
+//        return timeZone;
+//    }
+//
+//    public void setTimeZone(String timeZone) {
+//        this.timeZone = timeZone;
+//    }
 }

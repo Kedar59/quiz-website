@@ -1,5 +1,6 @@
 package com.fmsia2.quiz.service.controllers;
 
+import com.fmsia2.quiz.service.entities.Message;
 import com.fmsia2.quiz.service.entities.Question;
 import com.fmsia2.quiz.service.repositories.OnlyQuestion;
 import com.fmsia2.quiz.service.repositories.QtsAnswer;
@@ -32,7 +33,7 @@ public class QuizController {
     }
 
     @PostMapping("/addQuestions")
-    public ResponseEntity<String> addQuestionsToQuiz(@RequestBody List<Question> questionsList) throws Exception{
+    public ResponseEntity<Message> addQuestionsToQuiz(@RequestBody List<Question> questionsList) throws Exception{
         String quizId = questionsList.get(0).getQuiz().getQuizId();
         quizService.updateNumberOfQuestions(quizId, questionsList.size());
         List<Question> qtsList = new ArrayList<>();
@@ -40,13 +41,17 @@ public class QuizController {
             Question qts1 = questionService.saveQuestion(questionsList.get(i));
             qtsList.add(qts1);
         }
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Questions added successfully");
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Message("Questions added successfully"));
     }
 
     @GetMapping("/getQuiz/{quizId}")
     public ResponseEntity<Quiz> getQuizById(@PathVariable String quizId){
         Quiz quiz1 = quizService.getQuiz(quizId);
         return ResponseEntity.status(HttpStatus.FOUND).body(quiz1);
+    }
+    @GetMapping("/getAllQuizzes")
+    public ResponseEntity<List<Quiz>> getAllQuizzes1(){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(quizService.getAllQuizzes());
     }
 
     @GetMapping("/getQuestionsWithoutAnswer/{quizId}")
