@@ -5,9 +5,11 @@ function SearchQuizzes() {
   React.useEffect(() => {
     const fetchQuizzes = async () => {
       try {
-        const response = await axios.get("http://localhost:8084/quizzes/getAllQuizzes");
+        const response = await axios.get(
+          "http://localhost:8084/quizzes/getAllQuizzes"
+        );
         setQuizzes(response.data);
-        console.log(JSON.stringify(response.data));
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching quizzes:", error);
       }
@@ -18,28 +20,54 @@ function SearchQuizzes() {
   return (
     <>
       <table>
-      <thead>
-        <tr>
-          <th>Quiz Title</th>
-          <th>Quiz Creator</th>
-          <th>Number of Questions</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {quizzes.map((quiz) => (
-          <tr key={quiz.id}>
-            <td>{quiz.title}</td>
-            <td>{quiz.user.name}</td>
-            <td>{quiz.numOfQuestions}</td>
-            <td>
-                <button>Attempt Quiz</button>
-            </td>
+        <thead>
+          <tr>
+            <th>Quiz Title</th>
+            <th>Quiz Creator</th>
+            <th>Number of Questions</th>
+            <th>Action</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {quizzes.map((quiz) => (
+            <tr key={quiz.quizId}>
+              <td>{quiz.title}</td>
+              <td>{quiz.user.name}</td>
+              <td>{quiz.numberOfQuestions}</td>
+              <td>
+                <button
+                  onClick={async () => {
+                    const payload = {
+                      quizId: quiz.quizId,
+                      userId: "01efbab3-6c95-437e-b556-3d3f528d2d47",
+                      totalQts: parseInt(quiz.numberOfQuestions),
+                      noOfCorrectAnswers: 0,
+                    };
+                    try {
+                      const response = await axios.post(
+                        "http://localhost:8084/interactions/registerForQuiz",
+                        payload
+                      );
+                      if (response.status === 200) {
+                        alert(response.data.message);
+                      } else if (response.status === 202) {
+                        alert(response.data.message);
+                      } else if (response.status === 201) {
+                        alert(response.data.message);
+                      }
+                    } catch (error) {
+                      throw new Error("error while registering user "+error);
+                    }
+                  }}
+                >
+                  Attempt Quiz
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
-  )
+  );
 }
 export default SearchQuizzes;

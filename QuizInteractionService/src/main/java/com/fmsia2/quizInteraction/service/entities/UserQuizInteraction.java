@@ -28,14 +28,15 @@ public class UserQuizInteraction {
         this.userAnswers = userAnswers;
     }
 
-    public UserQuizInteraction(String userId, String quizId,int totalQts,int noOfCorrectAnswers) {
+    public UserQuizInteraction(String userId, String quizId,int totalQts,int noOfCorrectAnswers,Boolean attempted,Boolean checked) {
         this.userId = userId;
         this.quizId = quizId;
         this.totalQts = totalQts;
         this.noOfCorrectAnswers = noOfCorrectAnswers;
-        this.attempted = false;
-        this.checked = false;
+        this.attempted = attempted;
+        this.checked = checked;
     }
+
     public Boolean getChecked() {
         return checked;
     }

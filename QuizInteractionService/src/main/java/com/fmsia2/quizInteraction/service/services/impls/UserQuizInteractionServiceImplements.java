@@ -36,6 +36,7 @@ public class UserQuizInteractionServiceImplements implements UserQuizInteraction
         return repository.findByUserIdAndQuizId(userId, quizId);
     }
 
+
     @Override
     public UserQuizInteraction updateAttempted(UserQuizInteraction interaction) {
         interaction.setAttempted(true);
