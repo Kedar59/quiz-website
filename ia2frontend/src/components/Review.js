@@ -1,7 +1,9 @@
 import * as React from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 function Review() {
+  const user1 = useSelector((state) => state.user);
   const { quizId } = useParams();
   const [quizReview, setQuizReview] = React.useState({});
 
@@ -9,7 +11,7 @@ function Review() {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8084/users/reviewQuiz/01efbab3-6c95-437e-b556-3d3f528d2d47/${quizId}`
+          `http://localhost:8084/users/reviewQuiz/${user1}/${quizId}`
         );
         setQuizReview(response.data);
         console.log(response.data);

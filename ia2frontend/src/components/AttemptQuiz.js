@@ -1,7 +1,9 @@
 import * as React from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 function AttemptQuiz() {
+  const user1 = useSelector((state) => state.user);
   const { quizId } = useParams();
   const [quiz, setQuiz] = React.useState([]);
   const [listQuestions, setListQuestions] = React.useState([]);
@@ -9,7 +11,7 @@ function AttemptQuiz() {
   const handleSubmit = async () => {
     console.log(JSON.stringify(userAnswers));
     const payload = {
-        userId : "01efbab3-6c95-437e-b556-3d3f528d2d47",
+        userId : user1,
         quizId : quizId,
         userAnswers : userAnswers,
         attempted : false,

@@ -1,14 +1,14 @@
 import * as React from "react";
 import axios from "axios";
-
+import { useSelector } from "react-redux";
 function Profile() {
   const [user, setUser] = React.useState({});
-
+  const user1 = useSelector((state) => state.user);
   React.useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8084/users/getUserWithQuizList/01efbab3-6c95-437e-b556-3d3f528d2d47"
+          `http://localhost:8084/users/getUserWithQuizList/${user1}`
         );
         setUser(response.data);
         console.log(response.data);

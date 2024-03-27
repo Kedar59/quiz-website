@@ -61,6 +61,7 @@ function SearchQuizzes() {
                   }}
                 >
                   Attempt Quiz
+                  {/* navigate to attempt quiz with quizId */}
                 </button>
               </td>
             </tr>

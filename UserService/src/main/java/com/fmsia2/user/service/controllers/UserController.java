@@ -52,12 +52,12 @@ public class UserController {
             logger.info("request password : {}"+request.getPassword());
             logger.info("database password : {}"+ userauth.get().getPassword());
             if(userauth.get().getPassword().equals(request.getPassword()) ){
-                return ResponseEntity.status(HttpStatus.FOUND).body(userService.getUser(userauth.get().getUserId()));
+                return ResponseEntity.status(200).body(userService.getUser(userauth.get().getUserId()));
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new User("incorrect password","incorrect password","incorrect password","incorrect password"));
+                return ResponseEntity.status(201).body(new User("incorrect password","incorrect password","incorrect password","incorrect password"));
             }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new User("email not registered","email not registered","email not registered","email not registered"));
+        return ResponseEntity.status(202).body(new User("email not registered","email not registered","email not registered","email not registered"));
     }
 
     @GetMapping("/profile/{userId}")

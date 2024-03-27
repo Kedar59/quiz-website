@@ -1,13 +1,12 @@
 import * as React from "react";
 import axios from "axios";
 import { Router, redirect } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 function CreateQuiz() {
+  const user1 = useSelector((state) => state.user);
   const [title, setTitle] = React.useState("");
   const [numberOfQuestions, setNumberOfQuestions] = React.useState(0);
-  const [user, setUser] = React.useState({userId:"ba719dad-d07e-4f2a-9c5c-18429084c4da"});
-  
-
+  const [user, setUser] = React.useState({userId:user1});
   const handleSubmit = async (event) => {
     // event.preventDefault();
     const payload = {
