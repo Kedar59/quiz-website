@@ -1,6 +1,8 @@
 import * as React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function SearchQuizzes() {
+  const navigate = useNavigate();
   const [quizzes, setQuizzes] = React.useState([]);
   React.useEffect(() => {
     const fetchQuizzes = async () => {
@@ -35,7 +37,7 @@ function SearchQuizzes() {
               <td>{quiz.user.name}</td>
               <td>{quiz.numberOfQuestions}</td>
               <td>
-                <button redirect to attemptQuiz
+                <button
                   onClick={async () => {
                     const payload = {
                       quizId: quiz.quizId,
@@ -52,8 +54,10 @@ function SearchQuizzes() {
                         alert(response.data.message);
                       } else if (response.status === 202) {
                         alert(response.data.message);
+                        navigate('/attemptQuiz/'+quiz.quizId);
                       } else if (response.status === 201) {
                         alert(response.data.message);
+                        navigate('/attemptQuiz/'+quiz.quizId);
                       }
                     } catch (error) {
                       throw new Error("error while registering user "+error);
