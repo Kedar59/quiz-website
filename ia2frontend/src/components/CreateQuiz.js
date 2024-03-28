@@ -1,8 +1,10 @@
 import * as React from "react";
 import axios from "axios";
-import { Router, redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 function CreateQuiz() {
+  const navigate = useNavigate();
   const user1 = useSelector((state) => state.user);
   const [title, setTitle] = React.useState("");
   const [numberOfQuestions, setNumberOfQuestions] = React.useState(0);
@@ -33,7 +35,7 @@ function CreateQuiz() {
         // console.log("Registration successful:", response.data);
         const quiz = response.data;
         console.log(JSON.stringify(quiz));
-        redirect(`/addQuestion/${quiz.quizId}/${quiz.numberOfQuestion}`);
+        navigate(`/addQuestion/${quiz.quizId}/${quiz.numberOfQuestion}`);
       } else {
         alert("some error occoured : "+ response.status)
       }

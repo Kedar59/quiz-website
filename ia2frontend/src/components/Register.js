@@ -7,27 +7,20 @@ import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Select from '@mui/material/Select';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-
+import { useNavigate } from "react-router-dom";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import MenuItem from '@mui/material/MenuItem';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import AppAppBar from './home_components/AppAppBar';
 
 function Register() {
+  const navigate = useNavigate();
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
-  const [about, setAbout] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [name, setName] = React.useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -46,8 +39,8 @@ function Register() {
     try {
       const response = await axios.post('http://localhost:8084/users/register', payload);
       if (response.status === 201) {
-        window.location.replace('/');
         console.log('Registration successful:', response.data);
+        navigate('/');
       } else if(response.status === 302){
         alert("email already exists");
       }

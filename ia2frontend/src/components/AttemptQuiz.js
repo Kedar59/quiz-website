@@ -1,8 +1,10 @@
 import * as React from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 function AttemptQuiz() {
+  const navigate = useNavigate();
   const user1 = useSelector((state) => state.user);
   const { quizId } = useParams();
   const [quiz, setQuiz] = React.useState([]);
@@ -23,6 +25,7 @@ function AttemptQuiz() {
       if(response.status === 202){
         alert("questions accepted");
         console.log(response.data);
+        navigate('/profile');
       }
     } catch (error) {
         throw new Error("while adding questions : " + error.message);

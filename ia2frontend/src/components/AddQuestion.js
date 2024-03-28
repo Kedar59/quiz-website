@@ -1,7 +1,10 @@
 import * as React from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 function AddQuestion() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { nQts } = useParams();
   const [questions, setQuestions] = React.useState([]);
@@ -43,6 +46,7 @@ function AddQuestion() {
       const response = await axios.post('http://localhost:8084/quizzes/addQuestions', questions);
       if(response.status === 201){
         alert("questions added successfullt");
+        navigate(`/SearchQuizzes`);
       }
     } catch (error) {
         throw new Error("while adding questions : " + error.message);

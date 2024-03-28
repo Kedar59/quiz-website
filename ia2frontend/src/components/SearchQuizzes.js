@@ -35,7 +35,7 @@ function SearchQuizzes() {
               <td>{quiz.user.name}</td>
               <td>{quiz.numberOfQuestions}</td>
               <td>
-                <button
+                <button redirect to attemptQuiz
                   onClick={async () => {
                     const payload = {
                       quizId: quiz.quizId,
