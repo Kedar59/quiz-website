@@ -20,9 +20,9 @@ function Profile() {
       }
     };
     fetchUser();
-  }, []);
+  }, [user1]);
 
-    const handleReviewQuiz = (quizIdinteraction) => {
+    const handleReviewQuiz = (quizId) => {
       // Redirect to the desired location with the quizId
       navigate(`/reviewQuiz/${quizId}`);
     };
@@ -66,7 +66,7 @@ function Profile() {
                   {interaction.quiz.numberOfQuestions}
                 </td>
                 <td>
-                  <button onClick={handleReviewQuiz(interaction.quizId)(interaction)}> Review Quiz </button>
+                  <button onClick={handleReviewQuiz(interaction.quizId)}> Review Quiz </button>
                 </td>
               </tr>
             ))}
