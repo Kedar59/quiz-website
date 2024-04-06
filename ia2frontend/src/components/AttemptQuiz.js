@@ -74,10 +74,10 @@ const AttemptQuiz = () => {
             <QuestionTitle>Question {index + 1}</QuestionTitle>
             <QuestionText>{question.question}</QuestionText>
             <OptionsContainer>
-              <Option>{question.option1}</Option>
-              <Option>{question.option2}</Option>
-              <Option>{question.option3}</Option>
-              <Option>{question.option4}</Option>
+              <Option>Option 1 : {question.option1}</Option>
+              <Option>Option 2 : {question.option2}</Option>
+              <Option>Option 3 : {question.option3}</Option>
+              <Option>Option 4 : {question.option4}</Option>
             </OptionsContainer>
             <AnswerInput
               type="number"

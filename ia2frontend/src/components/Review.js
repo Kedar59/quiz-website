@@ -2,7 +2,9 @@ import * as React from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 function Review() {
+  const navigate = useNavigate();
   const user1 = useSelector((state) => state.user);
   const { quizId } = useParams();
   const [quizReview, setQuizReview] = React.useState({});
@@ -20,9 +22,13 @@ function Review() {
       }
     };
     fetchUser();
-  }, [quizId]);
+  }, [quizId,user1]);
+  const handleprofile =()=>{
+    navigate(`/profile`);
+  }
   return (
     <>
+      <button onClick={handleprofile}>Back to profile</button>
       {/* <p>{JSON.stringify(quizReview)}</p> */}
       {quizReview.interaction &&
         quizReview.interaction.quiz &&

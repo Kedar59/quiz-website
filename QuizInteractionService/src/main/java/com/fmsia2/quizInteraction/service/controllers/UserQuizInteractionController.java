@@ -45,12 +45,12 @@ public class UserQuizInteractionController {
             if(interaction1.get().getAttempted()){
                 return ResponseEntity.status(200).body(new Message("User already attempted quiz"));
             }
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Message("User already registered"));
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Message("User already registered"));// 202
         }
         interaction.setAttempted(false);
         interaction.setChecked(false);
         interactionService.saveInteraction(interaction);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new Message("User registered for quiz"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new Message("User registered for quiz")); // 201
     } 
 
     @PostMapping("/getInteraction")
