@@ -1,9 +1,12 @@
 import * as React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-function SearchQuizzes() {
+import styled from "styled-components";
+
+const SearchQuizzes = () => {
   const navigate = useNavigate();
   const [quizzes, setQuizzes] = React.useState([]);
+
   React.useEffect(() => {
     const fetchQuizzes = async () => {
       try {
@@ -16,23 +19,23 @@ function SearchQuizzes() {
         console.error("Error fetching quizzes:", error);
       }
     };
-
     fetchQuizzes();
   }, []);
+
   return (
-    <>
-      <table>
+    <Container>
+      <Table>
         <thead>
-          <tr>
+          <Row>
             <th>Quiz Title</th>
             <th>Quiz Creator</th>
             <th>Number of Questions</th>
             <th>Action</th>
-          </tr>
+          </Row>
         </thead>
         <tbody>
           {quizzes.map((quiz) => (
-            <tr key={quiz.quizId}>
+            <Row key={quiz.quizId}>
               <td>{quiz.title}</td>
               <td>{quiz.user.name}</td>
               <td>{quiz.numberOfQuestions}</td>
@@ -54,25 +57,44 @@ function SearchQuizzes() {
                         alert(response.data.message);
                       } else if (response.status === 202) {
                         alert(response.data.message);
-                        navigate('/attemptQuiz/'+quiz.quizId);
+                        navigate(`/attemptQuiz/${quiz.quizId}`);
                       } else if (response.status === 201) {
                         alert(response.data.message);
-                        navigate('/attemptQuiz/'+quiz.quizId);
+                        navigate(`/attemptQuiz/${quiz.quizId}`);
                       }
                     } catch (error) {
-                      throw new Error("error while registering user "+error);
+                      throw new Error("error while registering user " + error);
                     }
                   }}
                 >
                   Attempt Quiz
-                  {/* navigate to attempt quiz with quizId */}
                 </button>
               </td>
-            </tr>
+            </Row>
           ))}
         </tbody>
-      </table>
-    </>
+      </Table>
+    </Container>
   );
-}
+};
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+`;
+
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+`;
+
+const Row = styled.tr`
+  border-bottom: 1px solid #ddd;
+  &:hover {
+    background-color: #f5f5f5;
+  }
+`;
+
 export default SearchQuizzes;

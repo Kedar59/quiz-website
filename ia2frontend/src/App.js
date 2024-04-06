@@ -1,10 +1,10 @@
 import './App.css';
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from "./components/Login";
 import Register from "./components/Register";
 import CreateQuiz from "./components/CreateQuiz";
 import AddQuestion from './components/AddQuestion';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SearchQuizzes from './components/SearchQuizzes';
 import AttemptQuiz from './components/AttemptQuiz';
 import Profile from './components/Profile';

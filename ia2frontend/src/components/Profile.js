@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function Profile() {
-  const [user, setUser] = React.useState({});
   const navigate = useNavigate();
   const user1 = useSelector((state) => state.user);
+  const [user, setUser] = React.useState({});
   React.useEffect(() => {
     const fetchUser = async () => {
       try {
