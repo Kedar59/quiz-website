@@ -1,13 +1,15 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Button, Typography, Paper, Table, TableBody, TableCell, TableHead, TableRow, Box } from '@mui/material';
 
 function Profile() {
   const navigate = useNavigate();
   const user1 = useSelector((state) => state.user);
-  const [user, setUser] = React.useState({});
-  React.useEffect(() => {
+  const [user, setUser] = useState({});
+  
+  useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
@@ -23,56 +25,62 @@ function Profile() {
   }, [user1]);
 
   const handleReviewQuiz = (quizId) => {
-      // Redirect to the desired location with the quizId
     navigate(`/reviewQuiz/${quizId}`);
   };
 
-  const handlecreatequiz = () => {
+  const handleCreateQuiz = () => {
     navigate(`/createQuiz`);
-  }
+  };
 
   const handleSearchQuiz = () => {
     navigate(`/SearchQuizzes`);
-  }
+  };
 
   return (
-    <>
-    <button onClick={handlecreatequiz}>Create Quiz</button>
-    <button onClick={handleSearchQuiz}>Search Quiz</button>
+    <Box component={Paper} elevation={3} p={3}>
+      <Typography variant="h4" gutterBottom>
+        Profile
+      </Typography>
+      <Typography variant="h6">Name: {user.name}</Typography>
+      <Typography variant="h6">Email: {user.email}</Typography>
+      <Typography variant="h6">About: {user.about}</Typography>
+      <Button variant="contained" color="primary" onClick={handleCreateQuiz} style={{ marginRight: 10 }}>
+        Create Quiz
+      </Button>
+      <Button variant="contained" color="secondary" onClick={handleSearchQuiz}>
+        Search Quiz
+      </Button>
 
-      <h1> Name : {user.name} </h1>
-      <h1> Email : {user.email} </h1>
-      <h1> About : {user.about} </h1>
-      <h1> Quizzes attempted </h1>
-      {/* <h1> {JSON.stringify(user.listOfInteractions)}</h1> */}
-      <table>
-        <thead>
-          <tr>
-            <th>Quiz Title</th>
-            <th>Quiz Creator</th>
-            <th>Marks</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Array.isArray(user.listOfInteractions) &&
-            user.listOfInteractions.length > 0 &&
-            user.listOfInteractions.map((interaction) => (
-              <tr key={interaction.quizId}>
-                <td>{interaction.quiz.title}</td>
-                <td>{interaction.quiz.user.name}</td>
-                <td>
-                  {interaction.noOfCorrectAnswers} /{" "}
-                  {interaction.quiz.numberOfQuestions}
-                </td>
-                <td>
-                  <button onClick={()=>handleReviewQuiz(interaction.quizId)}> Review Quiz </button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-    </>
+      <Typography variant="h6" style={{ marginTop: 20 }}>
+        Quizzes attempted
+      </Typography>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Quiz Title</TableCell>
+            <TableCell>Quiz Creator</TableCell>
+            <TableCell>Marks</TableCell>
+            <TableCell>Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {Array.isArray(user.listOfInteractions) && user.listOfInteractions.length > 0 && user.listOfInteractions.map((interaction) => (
+            <TableRow key={interaction.quizId}>
+              <TableCell>{interaction.quiz.title}</TableCell>
+              <TableCell>{interaction.quiz.user.name}</TableCell>
+              <TableCell>
+                {interaction.noOfCorrectAnswers} / {interaction.quiz.numberOfQuestions}
+              </TableCell>
+              <TableCell>
+                <Button variant="outlined" color="primary" onClick={() => handleReviewQuiz(interaction.quizId)}>
+                  Review Quiz
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Box>
   );
 }
 
