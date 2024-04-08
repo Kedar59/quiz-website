@@ -46,7 +46,7 @@ const AddQuestion = () => {
         "http://localhost:8084/quizzes/addQuestions",
         questions
       );
-      if (response.status === 201) {
+      if (response.status === 202) {
         alert("questions added successfully");
         navigate(`/SearchQuizzes`);
       }

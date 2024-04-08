@@ -36,7 +36,10 @@ const CreateQuiz = () => {
       if (response.status === 201) {
         const quiz = response.data;
         console.log(JSON.stringify(quiz));
-        navigate(`/addQuestion/${quiz.quizId}/${quiz.numberOfQuestion}`);
+        console.log("type of : "+typeof quiz.numberOfQuestions)
+        const navString = `/addQuestion/${quiz.quizId}/${quiz.numberOfQuestions}`;
+        console.log("navstring : "+navString);
+        navigate(navString);
       } else {
         alert("some error occurred: " + response.status);
       }
