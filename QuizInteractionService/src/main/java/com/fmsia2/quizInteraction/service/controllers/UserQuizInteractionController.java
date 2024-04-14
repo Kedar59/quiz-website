@@ -130,6 +130,4 @@ public class UserQuizInteractionController {
         logger.info("Quiz service fallback "+ex.getMessage());
         return new ResponseEntity<>(new UserQuizInteraction(),HttpStatus.SERVICE_UNAVAILABLE);
     }
-    
-
 }

@@ -84,6 +84,11 @@ function Login() {
         >
           Login
         </Button>
+        <Button variant="contained" color="secondary" onClick={()=>{
+          navigate(`/register`);
+        }}>
+        Dont have a account
+        </Button>
       </Box>
     </Box>
   );
