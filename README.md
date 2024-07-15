@@ -1,6 +1,6 @@
 # Demo video
 
-https://github.com/user-attachments/assets/f3dcaa9b-9ddb-4334-b2a2-22749576b8bc
+<video src="https://github.com/user-attachments/assets/f3dcaa9b-9ddb-4334-b2a2-22749576b8bc">
 
 ## Problem Statement : 
 We are creating a quiz website where a user will be able to create quizzes 
