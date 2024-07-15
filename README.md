@@ -1,6 +1,6 @@
 # Demo video
 
-<video src="readme-assets/demoOut.mp4" />
+
 
 ## Problem Statement : 
 We are creating a quiz website where a user will be able to create quizzes 
